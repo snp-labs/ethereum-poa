@@ -1,0 +1,52 @@
+{
+    "BOOT":[
+        {
+            "NETWORKID":"111",
+            "PORT":"3242",
+            "AUTHPORT":"4551",
+            "HTTPADDR":"127.0.0.1",
+            "DATAPATH":"./data_boot1"
+            
+        }
+    ],
+    "PEER":[
+        {
+            "NETWORKID":"111",
+            "PORT":"3243",
+            "AUTHPORT":"4552",
+            "HTTPADDR":"127.0.0.1",
+            "HTTPPORT":"12312",
+            "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_peer0",
+            "BOOTENODEPATH":"",
+            "DEFALUTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+        },
+        {
+            "NETWORKID":"111",
+            "PORT":"3244",
+            "AUTHPORT":"4553",
+            "HTTPADDR":"127.0.0.1",
+            "HTTPPORT":"12313",
+            "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_peer1",
+            "BOOTENODEPATH":"",
+            "DEFALUTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+        },
+        {
+            "NETWORKID":"111",
+            "PORT":"3245",
+            "AUTHPORT":"4554",
+            "HTTPADDR":"127.0.0.1",
+            "HTTPPORT":"12314",
+            "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_peer2",
+            "BOOTENODEPATH":"",
+            "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+        }
+    ],
+    "BUILDPATH":"./release/geth",
+    "GENESIS":"geth_poa.json"
+}
