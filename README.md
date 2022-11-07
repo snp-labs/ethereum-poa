@@ -32,7 +32,7 @@ in projectroot/config.json, check "PEER[0~n].PWDPATH"
 <br/>
 <br/>
 
-Generate genesis block
+Generate genesis.json
 (In remote, You only need to run it once on a single computer, not all computer)
 ```
 ./release/puppeth
@@ -115,6 +115,11 @@ If you run Ethereum network by remote (other PC) you must have TODO:
 Copy geth_poa.json file to all peer computers except bootstrap node
 
 <br/><br/><br/>
+
+Init Genesis Block
+```
+bash script.sh init peer [0~2]
+```
 
 
 Start Peer 0 and Add Validater Peer 1
