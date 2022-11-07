@@ -154,7 +154,7 @@ case $1 in
             "peer")
                 echo "> Start membership node"
                 BOOTENODE=`cat ${BOOTENODEPATH}/bootenode.json | jq '.enode' | sed 's/\"//g'`
-                PEER="${GETHPATH} --datadir ${DATAPATH} --http --http.port ${HTTPPORT} --http.api ${HTTPAPI} --http.addr ${HTTPADDR} --networkid ${NETWORKID} --verbosity 3 --mine --allow-insecure-unlock --unlock 0 --password ${PWDPATH} --bootnodes ${BOOTENODE} --port ${PORT} --authrpc.port ${AUTHPORT}"
+                PEER="${GETHPATH} --datadir ${DATAPATH} --http --http.port ${HTTPPORT} --http.api ${HTTPAPI} --http.addr ${HTTPADDR} --networkid ${NETWORKID} ${DEFAULTOPTION} --password ${PWDPATH} --bootnodes ${BOOTENODE} --port ${PORT} --authrpc.port ${AUTHPORT}"
                 echo ">> $PEER"
                 nohup ${PEER} >> ${DATAPATH}/geth.log 2>&1 & ;;
         esac 
