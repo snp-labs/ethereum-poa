@@ -104,6 +104,8 @@ HTTPADDR=`cat config.json | jq '.'$mode'['$index'].HTTPADDR' | sed 's/\"//g'`
 PWDPATH=`cat config.json | jq '.'$mode'['$index'].PWDPATH' | sed 's/\"//g'`
 BOOTENODEPATH=`cat config.json | jq '.'$mode'['$index'].BOOTENODEPATH' | sed 's/\"//g'`
 DEFAULTOPTION=`cat config.json | jq '.'$mode'['$index'].DEFAULTOPTION' | sed 's/\"//g'`
+
+NEWACCOUNT="${GETHPATH} --datadir ${DATAPATH} account new"
 if [ -n $BOOTENODEPATH ] ; then 
     BOOTENODEPATH="./" # default value
 fi
@@ -147,7 +149,7 @@ case $1 in
         case $2 in
             "boot")
                 echo "> Start bootstrap"
-                BOOT="${GETHPATH} --datadir ${DATAPATH} --networkid ${NETWORKID} --nat "extip:${HTTPADDR}" --port ${PORT} --authrpc.port ${AUTHPORT}"
+                BOOT="${GETH}PATH --datadir ${DATAPATH} --networkid ${NETWORKID} --nat "extip:${HTTPADDR}" --port ${PORT} --authrpc.port ${AUTHPORT}"
                 ENODENAME="boot$ENODENAME" 
                 echo ">> $BOOT"
                 nohup ${BOOT} >> ${DATAPATH}/geth.log 2>&1 & ;;

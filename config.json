@@ -20,7 +20,7 @@
             "PWDPATH":"password",
             "DATAPATH":"./data_peer0",
             "BOOTENODEPATH":"",
-            "DEFALUTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+            "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
         },
         {
             "NETWORKID":"111",
@@ -32,7 +32,7 @@
             "PWDPATH":"password",
             "DATAPATH":"./data_peer1",
             "BOOTENODEPATH":"",
-            "DEFALUTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+            "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
         },
         {
             "NETWORKID":"111",
