@@ -1,4 +1,5 @@
-password
-data_*
+password*
+data_*/geth*
+data_*/pid.txt
 *enode.json
 go-ethereum

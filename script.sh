@@ -39,8 +39,8 @@ check_list()
 # Check the command line is correct 
 check_command()
 {
-    return1=$(check_list "attach init start stop account log status" "$command")
-    return2=$(check_list "BOOT PEER" "$mode")
+    return1=$(check_list "attach init start stop account log status rm" "$command")
+    return2=$(check_list "BOOT PEER SIGN" "$mode")
     if [ -n "${index//[0-9]/}" ] || [ $return1 -eq 0 ] || [ $return2 -eq 0 ] ; then
         echo "invalid command"
         help
@@ -99,11 +99,13 @@ AUTHPORT=`cat config.json | jq '.'$mode'['$index'].AUTHPORT' | sed 's/\"//g'`
 
 DATAPATH=`cat config.json | jq '.'$mode'['$index'].DATAPATH' | sed 's/\"//g'`
 HTTPPORT=`cat config.json | jq '.'$mode'['$index'].HTTPPORT' | sed 's/\"//g'`
+WSPORT=`cat config.json | jq '.'$mode'['$index'].WSPORT' | sed 's/\"//g'`
 HTTPAPI=`cat config.json | jq '.'$mode'['$index'].HTTPAPI' | sed 's/\"//g'`
 HTTPADDR=`cat config.json | jq '.'$mode'['$index'].HTTPADDR' | sed 's/\"//g'`
 PWDPATH=`cat config.json | jq '.'$mode'['$index'].PWDPATH' | sed 's/\"//g'`
 BOOTENODEPATH=`cat config.json | jq '.'$mode'['$index'].BOOTENODEPATH' | sed 's/\"//g'`
 DEFAULTOPTION=`cat config.json | jq '.'$mode'['$index'].DEFAULTOPTION' | sed 's/\"//g'`
+DEFAULTOPTION+=" --miner.gaslimit 200000000 --rpc.batch-request-limit 10000 --rpc.batch-response-max-size 25000000  --txpool.accountqueue 30000 --txpool.accountslots 30000  --txpool.globalqueue 30000 --txpool.globalslots 30000"
 
 NEWACCOUNT="${GETHPATH} --datadir ${DATAPATH} account new"
 if [ -n $BOOTENODEPATH ] ; then 
@@ -116,11 +118,14 @@ PIDS=`pgrep geth`
 # Command processing
 case $1 in
     "init")       
+        echo "init $2 $3"
         ${GETHPATH} init --datadir ${DATAPATH} ${GENESIS} ;;
     "account") 
         ${NEWACCOUNT} ;;
     "attach")     
         ${GETHPATH} attach $DATAPATH/geth.ipc ;;
+    "rm")
+        rm -rf data_*/geth data_*/geth.log;;
     "log")        
         tail -F ${DATAPATH}/geth.log ;;
     "stop")
@@ -149,14 +154,22 @@ case $1 in
         case $2 in
             "boot")
                 echo "> Start bootstrap"
-                BOOT="${GETH}PATH --datadir ${DATAPATH} --networkid ${NETWORKID} --nat "extip:${HTTPADDR}" --port ${PORT} --authrpc.port ${AUTHPORT}"
+                BOOT="${GETHPATH} --datadir ${DATAPATH} --networkid ${NETWORKID} --nat "extip:${HTTPADDR}" --port ${PORT} --authrpc.port ${AUTHPORT}"
                 ENODENAME="boot$ENODENAME" 
                 echo ">> $BOOT"
                 nohup ${BOOT} >> ${DATAPATH}/geth.log 2>&1 & ;;
+            "sign")
+                echo "> Start membership node"
+                KEYFILE=$(ls ${DATAPATH}/keystore | sort -R | head -n 1)
+                ADDRESS=`cat ${DATAPATH}/keystore/${KEYFILE} | jq '.address' | sed 's/\"//g'`
+                BOOTENODE=`cat ${BOOTENODEPATH}/bootenode.json | jq '.enode' | sed 's/\"//g'`
+                PEER="${GETHPATH} --datadir ${DATAPATH} --http --http.port ${HTTPPORT} --miner.etherbase 0x${ADDRESS} --http.api ${HTTPAPI} --http.addr ${HTTPADDR} --ws.port ${WSPORT}  --networkid ${NETWORKID} ${DEFAULTOPTION} --password ${PWDPATH} --bootnodes ${BOOTENODE} --port ${PORT} --authrpc.port ${AUTHPORT}"
+                echo ">> $PEER"
+                nohup ${PEER} >> ${DATAPATH}/geth.log 2>&1 & ;;
             "peer")
                 echo "> Start membership node"
                 BOOTENODE=`cat ${BOOTENODEPATH}/bootenode.json | jq '.enode' | sed 's/\"//g'`
-                PEER="${GETHPATH} --datadir ${DATAPATH} --http --http.port ${HTTPPORT} --http.api ${HTTPAPI} --http.addr ${HTTPADDR} --networkid ${NETWORKID} ${DEFAULTOPTION} --password ${PWDPATH} --bootnodes ${BOOTENODE} --port ${PORT} --authrpc.port ${AUTHPORT}"
+                PEER="${GETHPATH} --datadir ${DATAPATH} --http --http.port ${HTTPPORT} --http.api ${HTTPAPI} --http.addr ${HTTPADDR} --ws.port ${WSPORT} --networkid ${NETWORKID} ${DEFAULTOPTION} --password ${PWDPATH} --bootnodes ${BOOTENODE} --port ${PORT} --authrpc.port ${AUTHPORT}"
                 echo ">> $PEER"
                 nohup ${PEER} >> ${DATAPATH}/geth.log 2>&1 & ;;
         esac 

@@ -2,6 +2,45 @@
 
 Construct BootStrap 1 and 3 Validators
 
+
+### Init blockchain
+```
+bash manage.sh init
+```
+
+### Start blockchain
+```
+bash manage.sh start
+```
+
+### Stop blockchain
+```
+bash manage.sh stop
+```
+
+### Remove DB
+```
+bash manage.sh rm
+```
+
+### See log
+```
+bash script.sh log peer 0
+```
+
+### Change gaslimit
+ - geth_poa.json file gasLimit value change
+ - script.sh file find gaslimit key-word and change 
+
+
+
+
+
+
+
+
+
+
 Start bootstrap
 ```
 bash script.sh start boot

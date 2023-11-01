@@ -2,51 +2,134 @@
     "BOOT":[
         {
             "NETWORKID":"111",
-            "PORT":"3242",
-            "AUTHPORT":"4551",
-            "HTTPADDR":"127.0.0.1",
+            "PORT":"3239",
+            "AUTHPORT":"4521",
+            "HTTPADDR":"192.168.100.38",
             "DATAPATH":"./data_boot1"
             
         }
     ],
-    "PEER":[
+    "SIGN":[ 
+        {
+            "NETWORKID":"111",
+            "PORT":"3240",
+            "AUTHPORT":"4550",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12310",
+	    "WSPORT":"12410",
+            "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_sign0",
+            "BOOTENODEPATH":"",
+            "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+        },
+        {
+            "NETWORKID":"111",
+            "PORT":"3241",
+            "AUTHPORT":"4551",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12311",
+            "WSPORT":"12411",
+            "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_sign1",
+            "BOOTENODEPATH":"",
+            "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+        },
+        {
+            "NETWORKID":"111",
+            "PORT":"3242",
+            "AUTHPORT":"4552",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12312",
+            "WSPORT":"12412",
+            "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_sign2",
+            "BOOTENODEPATH":"",
+            "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
+        },
         {
             "NETWORKID":"111",
             "PORT":"3243",
-            "AUTHPORT":"4552",
-            "HTTPADDR":"127.0.0.1",
-            "HTTPPORT":"12312",
+            "AUTHPORT":"4553",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12313",
+            "WSPORT":"12413",
             "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
             "PWDPATH":"password",
-            "DATAPATH":"./data_peer0",
+            "DATAPATH":"./data_sign3",
             "BOOTENODEPATH":"",
             "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
         },
         {
             "NETWORKID":"111",
             "PORT":"3244",
-            "AUTHPORT":"4553",
-            "HTTPADDR":"127.0.0.1",
-            "HTTPPORT":"12313",
+            "AUTHPORT":"4554",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12314",
+            "WSPORT":"12414",
             "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
             "PWDPATH":"password",
-            "DATAPATH":"./data_peer1",
+            "DATAPATH":"./data_sign4",
             "BOOTENODEPATH":"",
             "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
         },
         {
             "NETWORKID":"111",
             "PORT":"3245",
-            "AUTHPORT":"4554",
-            "HTTPADDR":"127.0.0.1",
-            "HTTPPORT":"12314",
+            "AUTHPORT":"4555",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12315",
+            "WSPORT":"12415",
             "HTTPAPI":"admin,eth,debug,miner,net,txpool,personal,web3,clique",
             "PWDPATH":"password",
-            "DATAPATH":"./data_peer2",
+            "DATAPATH":"./data_sign5",
             "BOOTENODEPATH":"",
             "DEFAULTOPTION":"--verbosity 3 --mine --allow-insecure-unlock --unlock 0"
         }
     ],
-    "BUILDPATH":"./release/geth",
+    "PEER":[
+        {
+            "NETWORKID":"111",
+            "PORT":"4240",
+            "AUTHPORT":"4560",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12320",
+            "WSPORT":"12420",
+            "HTTPAPI":"admin,eth,debug,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_peer0",
+            "BOOTENODEPATH":"",
+            "DEFAULTOPTION":"--verbosity 3 --allow-insecure-unlock --unlock 0"
+        },
+        {
+            "NETWORKID":"111",
+            "PORT":"4241",
+            "AUTHPORT":"4561",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12321",
+            "WSPORT":"12421",
+            "HTTPAPI":"admin,eth,debug,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_peer1",
+            "BOOTENODEPATH":"",
+            "DEFAULTOPTION":"--verbosity 3 --allow-insecure-unlock --unlock 0"
+        },
+        {
+            "NETWORKID":"111",
+            "PORT":"4242",
+            "AUTHPORT":"4562",
+            "HTTPADDR":"192.168.100.38",
+            "HTTPPORT":"12322",
+            "WSPORT":"12422",
+            "HTTPAPI":"admin,eth,debug,net,txpool,personal,web3,clique",
+            "PWDPATH":"password",
+            "DATAPATH":"./data_peer2",
+            "BOOTENODEPATH":"",
+            "DEFAULTOPTION":"--verbosity 3 --allow-insecure-unlock --unlock 0"
+        }
+    ],
+    "BUILDPATH":"./bin/geth",
     "GENESIS":"geth_poa.json"
 }
